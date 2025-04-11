@@ -1,7 +1,9 @@
 import {useState} from "react";
+import './FormSender.css'
 
 interface FormData{
     name: string;
+    excuseType: string;
 }
 
 const FormSender = () =>{
@@ -9,7 +11,7 @@ const FormSender = () =>{
 
     }
 
-    const[formData, setFormData] =useState<FormData>({name:""})
+    const[formData, setFormData] =useState<FormData>({name:"", excuseType:""})
 
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
@@ -23,14 +25,23 @@ const FormSender = () =>{
     return(
         <>
             <form onSubmit={handleSubmit}>
-                <label>
+                <label className={"formElement"}>
                     Imie:
                     <input
+
                         type={"text"}
                         name={"name"}
                         value={formData.name}
                         onChange={handleChange}
                     />
+                </label>
+                <label className={"formElement"}>
+                    Typ wymówki:
+                    <select name={"excuseType"} value={FormData.excuseType} onChange={handleChange}>
+                        <option value={""}>Wybierz</option>
+                        <option value={"spoznienie"}>Spóźnienie</option>
+                        <option value={"brakPracyDomowej"}>Brak pracy domowej</option>
+                    </select>
                 </label>
             </form>
         </>

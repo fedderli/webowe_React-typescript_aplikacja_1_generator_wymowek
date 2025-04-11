@@ -1,0 +1,9 @@
+.formElement {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+input, select {
+    margin-left: 10px;
+}

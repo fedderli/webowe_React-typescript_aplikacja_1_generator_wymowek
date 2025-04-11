@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      <h1>GENERATOR WYMÓWEK</h1>
+      <h2>GENERATOR WYMÓWEK</h2>
       <FormSender/>
       {/*      <Dziecko2 message={msg}/>
       <h2>To jest App Rodzic</h2>
