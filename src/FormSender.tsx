@@ -1,9 +1,10 @@
 import {useState} from "react";
 import './FormSender.css'
 interface FormSenderProps{
-    sendForm:(fotermData:string) => void
+    sendForm:(formData:MyFormData) => void
 }
-interface FormData{
+
+export interface MyFormData{
     excuseName: string;
     excuseType: string;
     excuseTrustLevel: string;
@@ -12,14 +13,14 @@ interface FormData{
     //comment: string;
     excuseUrgent: boolean;
 }
-
 const FormSender = ({sendForm} : FormSenderProps) =>{
-    function handleSubmit() {
-
+    function handleSubmit(a: React.FormEvent) {
+        a.preventDefault()
+        //alert(JSON.stringify(formData))
+        sendForm(formData)
     }
 
-    const[formData, setFormData] =useState<FormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false});
-
+    const[formData, setFormData] = useState<MyFormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false});
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
         const {name, value ,type, checked }=e.target as HTMLInputElement;
@@ -108,8 +109,8 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
 
                 <label className={"formElement"} id="buttonSubmit">
                     <button type="submit"
-                            onSubmit={handleSubmit}
-                            >Wyślij Formularz</button>
+                            >
+                            Wyślij Formularz</button>
                 </label>
             </form>
         </>
@@ -117,3 +118,5 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
 }
 
 export default FormSender
+
+
