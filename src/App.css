@@ -1,0 +1,10 @@
+#root {
+    display: flex;
+    flex-direction: row;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+

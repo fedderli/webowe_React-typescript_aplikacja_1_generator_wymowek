@@ -14,10 +14,16 @@ function App() {
     setMsg(msg)
   }*/
 
-  return (
+    function receiveForm() {
+
+    }
+
+    return (
     <>
-      <h2>GENERATOR WYMÓWEK</h2>
-      <FormSender/>
+
+
+      <FormSender sendForm={receiveForm}/>
+
       {/*      <Dziecko2 message={msg}/>
       <h2>To jest App Rodzic</h2>
     <Dziecko1 sendString={getMessage}/>*/}

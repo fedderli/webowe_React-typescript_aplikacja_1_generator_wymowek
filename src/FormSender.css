@@ -4,6 +4,12 @@
     margin: 20px;
 }
 
-input, select {
+input, select, textarea {
     margin-left: 10px;
 }
+
+#buttonSubmit {
+    display: flex;
+    justify-content: center;
+}
+
