@@ -12,15 +12,23 @@ export interface MyFormData{
     excuseCreativityLevel: string;
     //comment: string;
     excuseUrgent: boolean;
+    submitCount: number;
 }
+
+
+export function MyhandleSubmit() {
+
+}
+
 const FormSender = ({sendForm} : FormSenderProps) =>{
     function handleSubmit(a: React.FormEvent) {
         a.preventDefault()
         //alert(JSON.stringify(formData))
+        formData.submitCount ++
         sendForm(formData)
     }
 
-    const[formData, setFormData] = useState<MyFormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false});
+    const[formData, setFormData] = useState<MyFormData>({excuseName:"", excuseType:"Spóźnienie", excuseTrustLevel:"14", excuseDate:"", excuseCreativityLevel:"14", excuseUrgent: false, submitCount: 0});
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
         const {name, value ,type, checked }=e.target as HTMLInputElement;
@@ -30,13 +38,15 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
 
     }
 
+
+
     return(
         <>
             <form onSubmit={handleSubmit}>
                 <label className={"formElement"}>
                     Imie:
                     <input
-
+                        required
                         type={"text"}
                         name={"excuseName"}
                         value={formData.excuseName}
@@ -48,12 +58,12 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
                     Typ wymówki:
                     <select name={"excuseType"}
                             value={formData.excuseType}
-                            onChange={handleChange}>
-                        <option disabled>Wybierz</option>
-                        <option>Spóźnienie</option>
-                        <option>Brak pracy domowej</option>
-                        <option>Oblanie nauczyciela wodą w proszku</option>
-                        <option>Spanie na lekcji</option>
+                            onChange={handleChange}
+                    >
+                        <option >spóźnienie</option>
+                        <option>brak pracy domowej</option>
+                        <option>oblanie nauczyciela wodą w proszku</option>
+                        <option>spanie na lekcji</option>
                     </select>
                 </label>
 
@@ -69,13 +79,16 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
                            step="1"
                     >
                     </input>
+                    {formData.excuseTrustLevel}
                 </label>
                 <label className={"formElement"}>
                     Data zdarzenia:
-                    <input type="date"
-                    name="excuseDate"
-                    value={formData.excuseDate}
-                    onChange={handleChange}
+                    <input
+                        required
+                        type="date"
+                        name="excuseDate"
+                        value={formData.excuseDate}
+                        onChange={handleChange}
                     />
                 </label>
 
@@ -89,6 +102,7 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
                            max="28"
                            step="1"
                     />
+                    {formData.excuseCreativityLevel}
                 </label>
                 {/*<label className={"formElement"}>
                     Komentarzenie:
@@ -108,7 +122,8 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
                 </label>
 
                 <label className={"formElement"} id="buttonSubmit">
-                    <button type="submit"
+                    <button type={"submit"}
+                            onClick={MyhandleSubmit}
                             >
                             Wyślij Formularz</button>
                 </label>
@@ -118,5 +133,7 @@ const FormSender = ({sendForm} : FormSenderProps) =>{
 }
 
 export default FormSender
+
+
 
 

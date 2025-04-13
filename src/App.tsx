@@ -7,6 +7,7 @@ import Dziecko2 from "./Dziecko2.tsx";*/
 import { MyFormData } from './FormSender';
 import FormReceiver from "./FormReceiver.tsx";
 
+
 function App() {
 
 /*  const [msg, setMsg] = useState<string>("w oczekiwaniu w info od dziecka 1")
@@ -20,12 +21,11 @@ function App() {
     MyFormData) => {
     console.log(message);
     }*/
-    const [Message, setMessage] = useState<MyFormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false});
+    const [Message, setMessage] = useState<MyFormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false, submitCount: 0});
     function getForm(msg: MyFormData) {
         setMessage(msg)
     }
 
-    console.log("mariusz")
     return (
     <>
         <h2>Generator wymówek</h2>
@@ -33,10 +33,12 @@ function App() {
         <FormSender sendForm={getForm}/>
         <FormReceiver message={Message} />
 
+
       {/*      <Dziecko2 message={msg}/>
       <h2>To jest App Rodzic</h2>
     <Dziecko1 sendString={getMessage}/>*/}
     </>
+
   )
 }
 
