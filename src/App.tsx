@@ -1,45 +1,51 @@
-
 import './App.css'
 import FormSender from "./FormSender.tsx";
-/*import Dziecko1 from "./Dziecko1.tsx";
-import Dziecko2 from "./Dziecko2.tsx";*/
- import {useState} from "react";
+import { useState } from "react";
 import { MyFormData } from './FormSender';
 import FormReceiver from "./FormReceiver.tsx";
 
-
 function App() {
-
-/*  const [msg, setMsg] = useState<string>("w oczekiwaniu w info od dziecka 1")
-
-  function getMessage(msg: string) {
-    console.log(msg)
-    setMsg(msg)
-  }*/
-
-   /* const getForm = (message:
-    MyFormData) => {
-    console.log(message);
-    }*/
-    const [Message, setMessage] = useState<MyFormData>({excuseName:"", excuseType:"", excuseTrustLevel:"", excuseDate:"", excuseCreativityLevel:"", excuseUrgent: false, submitCount: 0});
+    const [excuseList, setExcuseList] = useState<string[]>([]);
+    const [formSent, setFormSent] = useState(false);
     function getForm(msg: MyFormData) {
-        setMessage(msg)
+        const trust = parseInt(msg.excuseTrustLevel);
+        const creative = parseInt(msg.excuseCreativityLevel);
+
+        let excuseReason = "nieznany powód";
+
+        const isBetween = (val: number, min: number, max: number) => val >= min && val <= max;
+
+        if (isBetween(trust, 1, 7) && isBetween(creative, 1, 7)) excuseReason = "zapomniałem, że istnieje";
+        if (isBetween(trust, 1, 7) && isBetween(creative, 8, 14)) excuseReason = "zapomniałem, że pan istnieje";
+        if (isBetween(trust, 1, 7) && isBetween(creative, 15, 21)) excuseReason = "zapomniałem wyłączyć żelazko";
+        if (isBetween(trust, 1, 7) && isBetween(creative, 22, 28)) excuseReason = "pingwiny nie jedzą bakłażanów";
+        if (isBetween(trust, 8, 14) && isBetween(creative, 1, 7)) excuseReason = "nie chciało mi się";
+        if (isBetween(trust, 8, 14) && isBetween(creative, 8, 14)) excuseReason = "Łukasz tak powiedział";
+        if (isBetween(trust, 8, 14) && isBetween(creative, 15, 21)) excuseReason = "nie mogę jeść bananów";
+        if (isBetween(trust, 8, 14) && isBetween(creative, 22, 28)) excuseReason = "jakiś ryba do mnie zadzwonił";
+        if (isBetween(trust, 15, 21) && isBetween(creative, 1, 7)) excuseReason = "ładna dzisiaj pogoda";
+        if (isBetween(trust, 15, 21) && isBetween(creative, 8, 14)) excuseReason = "dawno pana nie widziałem";
+        if (isBetween(trust, 15, 21) && isBetween(creative, 15, 21)) excuseReason = " dawno temu, gdy się obudziłem, postanowiłem zjeść trochę marmolady, ale okazało się, że marmolada wyszła z domu 12 sekund temu i nie zdążyłem się z nią pożegnać. To był mój najlepszy przyjaciel i bardzo mi go brakuje. 12 łososiów.";
+        if (isBetween(trust, 15, 21) && isBetween(creative, 22, 28)) excuseReason = "zapomniałem zrobić wczoraj tego, co miałem zrobić dziś";
+        if (isBetween(trust, 22, 28) && isBetween(creative, 1, 7)) excuseReason = "mam okres";
+        if (isBetween(trust, 22, 28) && isBetween(creative, 8, 14)) excuseReason = "byłem na pogrzebie babci";
+        if (isBetween(trust, 22, 28) && isBetween(creative, 15, 21)) excuseReason = "Z samego rana odebrałem telefon od znajomego astrofizyka, który potrzebował pomocy przy dekodowaniu anomalii w danych z teleskopu Jamesa Webba. Okazało się, że sygnał przypominał wzorzec matematyczny zbliżony do ciągu Fibonacciego, tylko że zapisany w systemie opartym na liczbach pierwszych. Zanim wspólnie obaliliśmy hipotezę kontaktu pozaziemskiego i wykluczyliśmy usterkę sprzętową, minęły dwie godziny. A potem jeszcze musiałem nakarmić kota, który chyba coś przeczuwał, bo patrzył na mnie jakby też znał ten szyfr.";
+        if (isBetween(trust, 22, 28) && isBetween(creative, 22, 28)) excuseReason = "zapomniałem ile jezus łowi ryb";
+
+        const excuse = `Ja, ${msg.excuseName} dopuściłem się czynu takiego jak ${msg.excuseType} w dniu ${msg.excuseDate}, ponieważ ${excuseReason}.`;
+        setExcuseList(prev => [...prev, excuse]);
+        setFormSent(true);
+
     }
 
     return (
-    <>
-        <h2>Generator wymówek</h2>
-
-        <FormSender sendForm={getForm}/>
-        <FormReceiver message={Message} />
-
-
-      {/*      <Dziecko2 message={msg}/>
-      <h2>To jest App Rodzic</h2>
-    <Dziecko1 sendString={getMessage}/>*/}
-    </>
-
-  )
+        <>
+            <h2>Generator wymówek</h2>
+            <div id={"wholeWeb"}>
+                <FormSender sendForm={getForm} />
+                {formSent && <FormReceiver excuseList={excuseList} />}
+            </div>
+        </>
+    );
 }
-
-export default App
+export default App;

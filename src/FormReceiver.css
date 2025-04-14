@@ -1,0 +1,22 @@
+#formReceiverCss {
+    width: 75%;
+    border: 1px solid #282828;
+    border-radius: 35px;
+    padding: 6px;
+    margin: 0 20px 0 10px;
+    box-shadow: 15px 15px 11px #171414;
+    background-color: #17328A;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin: 5px 0 0 10px;
+}
+
+h3 {
+    margin-left: 15px;
+}
+

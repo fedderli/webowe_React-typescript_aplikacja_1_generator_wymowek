@@ -1,7 +1,17 @@
+
+.inter {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
+
 .formElement {
     display: flex;
     flex-direction: row;
-    margin: 20px;
+    margin: 10px 0 10px 20px;
+    color: white;
+    width: 100%;
 }
 
 input, select, textarea {
@@ -9,7 +19,44 @@ input, select, textarea {
 }
 
 #buttonSubmit {
+    width: 40%;
     display: flex;
-    justify-content: center;
+    align-self: center;
+}
+
+#buttonSubmit button {
+    width: 100%;
+    display: flex;
+
+}
+
+button{
+    background-color: #0E00AE;
+    transition: background-color 0.15s;
+}
+
+button:hover {
+    background-color: lightgray;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 30%;
+    border: 3px solid #17328A;
+    padding: 6px;
+    margin: 0 10px 0 20px;
+    border-radius: 35px;
+    background-color: #2F21C3;
+    box-shadow: 15px 15px 11px #171414;
+
+}
+
+input, select {
+    border: 1px solid #0c236d;
+    border-radius: 5px;
+    background-color: #0E00AE;
+    color: #E7E7E7;
 }
 
