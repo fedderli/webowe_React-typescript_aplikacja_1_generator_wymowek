@@ -33,10 +33,12 @@ input, select, textarea {
 button{
     background-color: #0E00AE;
     transition: background-color 0.15s;
+    color: white;
 }
 
 button:hover {
     background-color: lightgray;
+    color: black   ;
 }
 
 form {
