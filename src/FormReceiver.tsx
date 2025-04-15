@@ -1,7 +1,7 @@
 import './FormReceiver.css'
 
 interface FormReceiverProps {
-    excuseList: string[],
+    excuseList: {text: string, urgent: boolean}[];
 
 }
 
@@ -14,7 +14,9 @@ const FormReceiver = ({excuseList}: FormReceiverProps) => {
                 <h3>Twoje wymówki:</h3>
                 <ul>
                     {excuseList.map((excuse, i) => (
-                        <li key={i} >{excuse}</li>
+                        <li key={i} style={{ color: excuse.urgent ? 'red' : 'white' }}>
+                            {excuse.text}
+                        </li>
                     ))}
                 </ul>
             </div>

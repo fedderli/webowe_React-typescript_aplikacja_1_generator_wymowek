@@ -4,8 +4,14 @@ import { useState } from "react";
 import { MyFormData } from './FormSender';
 import FormReceiver from "./FormReceiver.tsx";
 
+interface ExcuseWithUrgency {
+    text: string;
+    urgent: boolean;
+}
+
+
 function App() {
-    const [excuseList, setExcuseList] = useState<string[]>([]);
+    const [excuseList, setExcuseList] = useState<ExcuseWithUrgency[]>([]);
     const [formSent, setFormSent] = useState(false);
     function getForm(msg: MyFormData) {
         const trust = parseInt(msg.excuseTrustLevel);
@@ -33,7 +39,11 @@ function App() {
         if (isBetween(trust, 22, 28) && isBetween(creative, 22, 28)) excuseReason = "zapomniałem ile jezus łowi ryb";
 
         const excuse = `Ja, ${msg.excuseName} dopuściłem się czynu takiego jak ${msg.excuseType} w dniu ${msg.excuseDate}, ponieważ ${excuseReason}.`;
-        setExcuseList(prev => [...prev, excuse]);
+        setExcuseList(prev => [...prev,
+            {
+                text: excuse,
+                urgent: msg.excuseUrgent,
+            }]);
         setFormSent(true);
 
     }
