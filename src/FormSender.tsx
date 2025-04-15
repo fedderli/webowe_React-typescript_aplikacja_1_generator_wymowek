@@ -81,9 +81,9 @@ const FormSender = ({sendForm}: FormSenderProps) => {
                 </label>
 
                 <label className={"formElement"}>
-                    Poziom wiarygodności :
+                    Poziom wiarygodności:
                     <input
-                        type="range"
+                        type="range" className={"rangeStyle"}
                         name={"excuseTrustLevel"}
                         value={formData.excuseTrustLevel}
                         onChange={handleChange}
@@ -106,8 +106,8 @@ const FormSender = ({sendForm}: FormSenderProps) => {
                 </label>
 
                 <label className={"formElement"}>
-                    Poziom kreatywności :
-                    <input type="range"
+                    Poziom kreatywności:
+                    <input type="range" className={"rangeStyle"}
                            name="excuseCreativityLevel"
                            value={formData.excuseCreativityLevel}
                            onChange={handleChange}

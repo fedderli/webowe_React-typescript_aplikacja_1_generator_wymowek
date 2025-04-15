@@ -1,4 +1,5 @@
 import './App.css'
+import './FormReceiver.css'
 import FormSender from "./FormSender.tsx";
 import { useState } from "react";
 import { MyFormData } from './FormSender';
@@ -54,6 +55,7 @@ function App() {
             <div id={"wholeWeb"}>
                 <FormSender sendForm={getForm} />
                 {formSent && <FormReceiver excuseList={excuseList} />}
+
             </div>
         </>
     );
