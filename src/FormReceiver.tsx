@@ -1,20 +1,43 @@
 import './FormReceiver.css'
+import {useState} from "react";
+import {ExcuseWithUrgency} from "./App.tsx";
 
 interface FormReceiverProps {
-    excuseList: {text: string, urgent: boolean}[];
+    MyexcuseList: {text: string, urgent: boolean}[];
 
 }
 
 
 
-const FormReceiver = ({excuseList}: FormReceiverProps) => {
+const FormReceiver = ({MyexcuseList}: FormReceiverProps) => {
+
+
+    const [excuseList, setExcuseList] = useState<ExcuseWithUrgency[]>(()=> {
+        const saved = localStorage.getItem("excuseList");
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    function editExcuse( index: number) {
+        const updatedExcuse = prompt(`Chesz zmienic element , podaj nowy element`)
+        if(updatedExcuse !== null && updatedExcuse.trim() !== ""){
+            const updatedExcuseList = [...excuseList];
+            updatedExcuseList[index] = {
+                ...updatedExcuseList[index],
+                text: updatedExcuse,
+            }
+            localStorage.setItem("excuseList", JSON.stringify(updatedExcuseList))
+            setExcuseList(updatedExcuseList)
+        }
+    }
+
     return (
         <>
             <div id={"formReceiverCss"}>
                 <h3>Twoje wymówki:</h3>
                 <ul>
-                    {excuseList.map((excuse, i) => (
-                        <li key={i} style={{ color: excuse.urgent ? 'red' : 'white' }}>
+                    {MyexcuseList.map((excuse, i) => (
+                        <li key={i} onClick={() => editExcuse(i)}
+                            style={{ color: excuse.urgent ? 'red' : 'white' }}>
                             {excuse.text}
                         </li>
                     ))}

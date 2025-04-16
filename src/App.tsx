@@ -5,14 +5,17 @@ import { useState } from "react";
 import { MyFormData } from './FormSender';
 import FormReceiver from "./FormReceiver.tsx";
 
-interface ExcuseWithUrgency {
+export interface ExcuseWithUrgency {
     text: string;
     urgent: boolean;
 }
 
 
 function App() {
-    const [excuseList, setExcuseList] = useState<ExcuseWithUrgency[]>([]);
+        const [excuseList, setExcuseList] = useState<ExcuseWithUrgency[]>(()=> {
+        const saved = localStorage.getItem("excuseList");
+        return saved ? JSON.parse(saved) : [];
+    });
     const [formSent, setFormSent] = useState(false);
     function getForm(msg: MyFormData) {
         const trust = parseInt(msg.excuseTrustLevel);
@@ -40,11 +43,17 @@ function App() {
         if (isBetween(trust, 22, 28) && isBetween(creative, 22, 28)) excuseReason = "zapomniałem ile jezus łowi ryb";
 
         const excuse = `Ja, ${msg.excuseName} dopuściłem się czynu takiego jak ${msg.excuseType} w dniu ${msg.excuseDate}, ponieważ ${excuseReason}.`;
-        setExcuseList(prev => [...prev,
-            {
-                text: excuse,
-                urgent: msg.excuseUrgent,
-            }]);
+
+        const newExcuse = {
+            text : excuse,
+            urgent: msg.excuseUrgent
+        }
+
+        setExcuseList(prev => {
+            const updated = [...prev, newExcuse];
+            localStorage.setItem("excuseList", JSON.stringify(updated));
+            return updated;
+        });
         setFormSent(true);
 
     }
@@ -54,8 +63,7 @@ function App() {
             <h2>Generator wymówek</h2>
             <div id={"wholeWeb"}>
                 <FormSender sendForm={getForm} />
-                {formSent && <FormReceiver excuseList={excuseList} />}
-
+                {formSent && <FormReceiver MyexcuseList={excuseList} />}
             </div>
         </>
     );
